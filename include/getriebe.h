@@ -5,8 +5,9 @@
 
 #include "../src/opcode/opcode.h"
 
+#define GETRIEBE_MEMORY_SIZE UINT32_C((UINT16_MAX + 1) * 4)
 #define GETRIEBE_STACK_SIZE UINT16_MAX
-#define GETRIEBE_MEMORY_SIZE UINT16_MAX * 4
+#define GETRIEBE_STACK_OFFSET UINT32_C(GETRIEBE_MEMORY_SIZE * 3 / 4)
 
 typedef enum g_register
 {
@@ -14,6 +15,13 @@ typedef enum g_register
     G_REGISTER_1,
     G_REGISTER_2,
     G_REGISTER_3,
+    G_REGISTER_4,
+    G_REGISTER_5,
+    G_REGISTER_6,
+    G_REGISTER_7,
+    G_REGISTER_PC,
+    G_REGISTER_SP,
+    G_REGISTER_FLAG,
     G_REGISTER_COUNT
 } G_Register;
 
@@ -28,21 +36,33 @@ typedef enum g_flags
 
 typedef struct getriebe
 {
-    uint32_t program_counter;
-    uint16_t stack_pointer;
-    uint32_t flags;
     uint32_t registers[G_REGISTER_COUNT];
     uint32_t * memory;
 } Getriebe;
 
+static inline uint32_t getriebe_read_register(Getriebe * self, uint32_t register_number)
+{
+    return self->registers[register_number];
+}
+
+static inline void getriebe_write_register(Getriebe * self, uint32_t register_number, uint32_t value)
+{
+    self->registers[register_number] = value;
+}
+
 static inline uint32_t getriebe_read_next_cell(Getriebe * self)
 {
-    return self->memory[self->program_counter++];
+    return self->memory[self->registers[G_REGISTER_PC]++];
 }
 
 static inline uint32_t getriebe_read_cell(Getriebe * self, uint32_t address)
 {
     return self->memory[address];
+}
+
+static inline void getriebe_write_cell(Getriebe * self, uint32_t address, uint32_t value)
+{
+    self->memory[address] = value;
 }
 
 void getriebe_init(Getriebe * self, uint32_t * code, uint32_t code_start, uint32_t code_size);

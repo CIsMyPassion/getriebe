@@ -20,7 +20,7 @@ static inline void g_opcode_store(Getriebe * getriebe, G_Opcode opcode)
                     getriebe->registers[register_a];
             break;
         case G_OPCODE_STO:
-            getriebe->memory[getriebe->program_counter + operand_a] =
+            getriebe->memory[getriebe_read_register(getriebe, G_REGISTER_PC) + operand_a] =
                     getriebe->registers[register_a];
             break;
         case G_OPCODE_STR:

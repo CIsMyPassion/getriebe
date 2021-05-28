@@ -20,7 +20,7 @@ static inline void g_opcode_load(Getriebe * getriebe, G_Opcode opcode)
             break;
         case G_OPCODE_LDO:
             getriebe->registers[register_a] =
-                    getriebe_read_cell(getriebe, getriebe->program_counter + operand_a);
+                    getriebe_read_cell(getriebe, getriebe_read_register(getriebe, G_REGISTER_PC) + operand_a);
             break;
         case G_OPCODE_LDR:
             operand_b = getriebe_read_next_cell(getriebe);
@@ -33,7 +33,7 @@ static inline void g_opcode_load(Getriebe * getriebe, G_Opcode opcode)
             break;
         case G_OPCODE_LEA:
             getriebe->registers[register_a] =
-                    getriebe->program_counter + operand_a;
+                    getriebe_read_register(getriebe, G_REGISTER_PC) + operand_a;
             break;
         default:
             break;

@@ -32,12 +32,21 @@ void g_opcode_control(Getriebe * getriebe, G_Opcode opcode)
 static void internal_psh_handler(Getriebe * getriebe)
 {
     uint32_t register_number = getriebe_read_next_cell(getriebe);
-    getriebe->memory[getriebe->stack_pointer--] = getriebe->registers[register_number];
+    uint32_t register_value = getriebe_read_register(getriebe, register_number);
+    uint32_t * stack_pointer = &(getriebe->registers[G_REGISTER_SP]);
+    uint32_t real_stack_address = *stack_pointer-- + GETRIEBE_STACK_OFFSET;
+
+    getriebe_write_cell(getriebe, real_stack_address, register_value);
 }
 
 static void internal_pop_handler(Getriebe * getriebe)
 {
+    uint32_t register_number = getriebe_read_next_cell(getriebe);
+    uint32_t * stack_pointer = &(getriebe->registers[G_REGISTER_SP]);
+    uint32_t real_stack_address = *stack_pointer++ + GETRIEBE_STACK_OFFSET;
+    uint32_t stack_value = getriebe_read_cell(getriebe, real_stack_address);
 
+    getriebe_write_register(getriebe, register_number, stack_value);
 }
 
 static void internal_jmp_handler(Getriebe * getriebe)
