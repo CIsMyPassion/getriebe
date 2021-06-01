@@ -50,7 +50,12 @@ typedef enum g_opcode
     G_OPCODE_ORR,
     G_OPCODE_MOV,
     G_OPCODE_BIC,
-    G_OPCODE_MVN
+    G_OPCODE_MVN,
+    G_OPCODE_MUL,
+    G_OPCODE_MLA,
+    G_OPCODE_LDR,
+    G_OPCODE_STR,
+    G_OPCODE_SWI
 } G_Opcode;
 
 static inline uint32_t g_opcode_get_group(G_Opcode opcode)

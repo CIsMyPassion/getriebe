@@ -1,5 +1,5 @@
-#ifndef OPCODE_ADD_H
-#define OPCODE_ADD_H
+#ifndef OPCODE_DATA_MANIPULATION_H
+#define OPCODE_DATA_MANIPULATION_H
 
 #include "../../include/getriebe.h"
 
