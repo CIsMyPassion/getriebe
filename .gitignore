@@ -1,4 +1,11 @@
+# visual studio files
 .vscode
+
+# camek files
+CMakeFiles/*
+CMakeCache.txt
+cmake_install.cmake
+Makefile
 
 # Prerequisites
 *.d

@@ -1,3 +1,0 @@
-D:/c_projects/getriebe/CMakeFiles/edit_cache.dir
-D:/c_projects/getriebe/CMakeFiles/getriebe.dir
-D:/c_projects/getriebe/CMakeFiles/rebuild_cache.dir
