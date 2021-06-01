@@ -7,6 +7,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/c_projects/getriebe/src/*.
 set(OLD_GLOB
   "D:/c_projects/getriebe/src/getriebe.c"
   "D:/c_projects/getriebe/src/main.c"
+  "D:/c_projects/getriebe/src/opcode/opcode_add.c"
   "D:/c_projects/getriebe/src/opcode/opcode_control.c"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -18,6 +19,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/c_projects/getriebe/src/*.h")
 set(OLD_GLOB
   "D:/c_projects/getriebe/src/opcode/opcode.h"
+  "D:/c_projects/getriebe/src/opcode/opcode_add.h"
   "D:/c_projects/getriebe/src/opcode/opcode_control.h"
   "D:/c_projects/getriebe/src/opcode/opcode_load.h"
   "D:/c_projects/getriebe/src/opcode/opcode_logic.h"

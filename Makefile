@@ -177,6 +177,30 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\getriebe.dir\build.make CMakeFiles/getriebe.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/opcode/opcode_add.obj: src/opcode/opcode_add.c.obj
+.PHONY : src/opcode/opcode_add.obj
+
+# target to build an object file
+src/opcode/opcode_add.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\getriebe.dir\build.make CMakeFiles/getriebe.dir/src/opcode/opcode_add.c.obj
+.PHONY : src/opcode/opcode_add.c.obj
+
+src/opcode/opcode_add.i: src/opcode/opcode_add.c.i
+.PHONY : src/opcode/opcode_add.i
+
+# target to preprocess a source file
+src/opcode/opcode_add.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\getriebe.dir\build.make CMakeFiles/getriebe.dir/src/opcode/opcode_add.c.i
+.PHONY : src/opcode/opcode_add.c.i
+
+src/opcode/opcode_add.s: src/opcode/opcode_add.c.s
+.PHONY : src/opcode/opcode_add.s
+
+# target to generate assembly for a file
+src/opcode/opcode_add.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\getriebe.dir\build.make CMakeFiles/getriebe.dir/src/opcode/opcode_add.c.s
+.PHONY : src/opcode/opcode_add.c.s
+
 src/opcode/opcode_control.obj: src/opcode/opcode_control.c.obj
 .PHONY : src/opcode/opcode_control.obj
 
@@ -216,6 +240,9 @@ help:
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/opcode/opcode_add.obj
+	@echo ... src/opcode/opcode_add.i
+	@echo ... src/opcode/opcode_add.s
 	@echo ... src/opcode/opcode_control.obj
 	@echo ... src/opcode/opcode_control.i
 	@echo ... src/opcode/opcode_control.s

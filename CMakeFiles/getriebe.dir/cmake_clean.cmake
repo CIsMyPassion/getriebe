@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/getriebe.dir/src/getriebe.c.obj.d"
   "CMakeFiles/getriebe.dir/src/main.c.obj"
   "CMakeFiles/getriebe.dir/src/main.c.obj.d"
+  "CMakeFiles/getriebe.dir/src/opcode/opcode_add.c.obj"
+  "CMakeFiles/getriebe.dir/src/opcode/opcode_add.c.obj.d"
   "CMakeFiles/getriebe.dir/src/opcode/opcode_control.c.obj"
   "CMakeFiles/getriebe.dir/src/opcode/opcode_control.c.obj.d"
   "libgetriebe.dll.a"

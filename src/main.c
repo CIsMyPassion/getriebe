@@ -1,5 +1,7 @@
 #include "../include/getriebe.h"
 
+#include "opcode/opcode_data_manipulation.h"
+
 Getriebe getriebe;
 
 uint32_t code[] = {
@@ -19,6 +21,7 @@ uint32_t stack_test[] = {
 
 int main()
 {
+    /*
     //getriebe_init(&getriebe, code, GETRIEBE_STACK_SIZE + 1, sizeof(code) / sizeof(uint32_t));
     getriebe_init(&getriebe, stack_test, GETRIEBE_STACK_SIZE + 1, sizeof(stack_test) / sizeof(uint32_t));
 
@@ -30,6 +33,16 @@ int main()
     getriebe_execute_next_instruction(&getriebe);
     getriebe_print_state(&getriebe);
     getriebe_print_memory(&getriebe, 0XFFF0, 64);
+    */
+   	uint32_t opcode = 0x00012340;
+    G_Opcode_Add add;
+    add.opcode = 64;
+    add.immediate = 0;
+    add.destination = 3;
+    add.source_0 = 2;
+    add.source_1 = 1;
+    opcode_data_maipulation_handle(&getriebe, opcode);
+
 
     return 0;
 }
