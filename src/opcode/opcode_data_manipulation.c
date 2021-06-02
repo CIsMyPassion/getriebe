@@ -1,12 +1,10 @@
 #include "opcode_data_manipulation.h"
 
-#include "opcode.h"
-
-
+#include "../../include/getriebe.h"
 
 void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 {
-    G_Opcode_Data_Manipulation operation = (G_Opcode_Add) { .value = opcode };
+    G_Opcode_Data_Manipulation operation = (G_Opcode_Data_Manipulation) { .value = opcode };
 
     switch (operation.immediate)
     {

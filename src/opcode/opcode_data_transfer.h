@@ -1,7 +1,9 @@
 #ifndef OPCODE_DATA_TRANSFER_H
 #define OPCODE_DATA_TRANSFER_H
 
-#include "../../include/getriebe.h"
+#include <stdint.h>
+
+typedef struct getriebe Getriebe;
 
 typedef union
 {
@@ -19,7 +21,7 @@ typedef union
         uint8_t source_destination : 4;
         uint16_t source_1 : 11;
     };
-} G_Opcode_Multiply;
+} G_Opcode_Data_Transfer;
 
 void opcode_data_transfer_handle(Getriebe * self, uint32_t opcode);
 

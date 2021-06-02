@@ -1,7 +1,9 @@
 #ifndef OPCODE_MULTIPLY_H
 #define OPCODE_MULTIPLY_H
 
-#include "../../include/getriebe.h"
+#include<stdint.h>
+
+typedef struct getriebe Getriebe;
 
 typedef union
 {

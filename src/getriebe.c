@@ -5,11 +5,6 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#include "opcode/opcode_math.h"
-#include "opcode/opcode_logic.h"
-#include "opcode/opcode_load.h"
-#include "opcode/opcode_store.h"
-#include "opcode/opcode_control.h"
 
 static inline void internal_init_registers(uint32_t (* registers) [G_REGISTER_COUNT])
 {
@@ -38,27 +33,6 @@ void getriebe_execute(Getriebe * self, uint32_t start_address, uint32_t instruct
 void getriebe_execute_next_instruction(Getriebe * self)
 {
     uint32_t opcode = getriebe_read_next_cell(self);
-
-    switch (g_opcode_get_group(opcode))
-    {
-        case G_OPCODE_NOP:
-            return;
-        case G_OPCODE_GROUP_MATH:
-            g_opcode_math(self, opcode);
-            break;
-        case G_OPCODE_GROUP_LOGIC:
-            g_opcode_logic(self, opcode);
-            break;
-        case G_OPCODE_GROUP_LOAD:
-            g_opcode_load(self, opcode);
-            break;
-        case G_OPCODE_GROUP_STORE:
-            g_opcode_store(self, opcode);
-            break;
-        case G_OPCODE_GROUP_CONTROL:
-            g_opcode_control(self, opcode);
-            break;
-    }
 }
 
 void getriebe_print_state(Getriebe * self)

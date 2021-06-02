@@ -4,6 +4,10 @@
 #include <stdint.h>
 
 #include "../src/opcode/opcode.h"
+#include "../src/opcode/opcode_data_manipulation.h"
+#include "../src/opcode/opcode_data_transfer.h"
+#include "../src/opcode/opcode_multiply.h"
+#include "../src/opcode/opcode_software_interrupt.h"
 
 #define GETRIEBE_MEMORY_SIZE (UINT16_MAX + 1) * 4
 #define GETRIEBE_STACK_SIZE UINT16_MAX

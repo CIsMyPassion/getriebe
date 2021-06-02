@@ -1,7 +1,9 @@
 #ifndef OPCODE_DATA_MANIPULATION_H
 #define OPCODE_DATA_MANIPULATION_H
 
-#include "../../include/getriebe.h"
+#include <stdint.h>
+
+typedef struct getriebe Getriebe;
 
 typedef union
 {
