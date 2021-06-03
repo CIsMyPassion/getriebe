@@ -10,11 +10,14 @@ typedef union
     uint32_t value;
     struct
     {
-        uint8_t opcode : 7;
+		uint8_t condition : 4;
+        uint8_t identifier : 2;
         uint8_t immediate : 1;
+		uint8_t opcode : 4;
+		uint8_t set_condition : 1;
+        uint8_t operand_0 : 4;
         uint8_t destination : 4;
-        uint8_t source_0 : 4;
-        uint16_t source_1;
+        uint16_t operand_1 : 12;
     };
 } G_Opcode_Data_Manipulation;
 

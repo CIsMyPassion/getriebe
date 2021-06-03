@@ -11,7 +11,7 @@ typedef union
     struct
     {
         uint8_t condition : 4;  
-        uint8_t opcode : 4;
+        uint8_t identifier : 4;
         uint32_t comment_field : 24;
     };
 } G_Opcode_Software_Inerrupt;

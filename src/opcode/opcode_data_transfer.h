@@ -10,7 +10,8 @@ typedef union
     uint32_t value;
     struct
     {
-        uint8_t opcode : 7;
+		uint8_t condition : 4;
+        uint8_t identifier : 2;
         uint8_t immediate : 1;
         uint8_t pre_post_indexing : 1;
         uint8_t up_down : 1;
