@@ -41,6 +41,10 @@ typedef union
     };
 } G_Opcode_Data_Manipulation;
 
+static inline G_Opcode_Data_Manipulation opcode_data_manipulation_create(uint8_t condition, uint8_t immediate, G_Data_Manipulation_Mode mode, uint8_t set_condition, uint8_t operand_0, uint8_t destination, uint16_t operand_1)
+{
+	return (G_Opcode_Data_Manipulation) { .condition = condition, .identifier = 0b00, .immediate = immediate, .opcode = (uint8_t) mode, .set_condition = set_condition, .operand_0 = operand_0, .destination = destination, .operand_1 = operand_1 };
+}
 void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode);
 
 #endif

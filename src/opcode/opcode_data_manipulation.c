@@ -1,5 +1,7 @@
 #include "opcode_data_manipulation.h"
 
+#include <stdio.h>
+
 #include "../../include/getriebe.h"
 
 static inline uint32_t internal_right_rotate(uint32_t value, uint8_t ammount)
@@ -56,45 +58,94 @@ static inline uint32_t internal_compute_operand_1_value(Getriebe * self, G_Opcod
 
 void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 {
-    G_Opcode_Data_Manipulation operation = (G_Opcode_Data_Manipulation) { .value = opcode };
-	uint32_t opernad_0 = getriebe_read_register(self, operation.operand_0);
-	uint32_t opernad_1 = internal_compute_operand_1_value(self, operation);
+    G_Opcode_Data_Manipulation op = (G_Opcode_Data_Manipulation) { .value = opcode };
+	uint32_t operand_0 = getriebe_read_register(self, op.operand_0);
+	uint32_t operand_1 = internal_compute_operand_1_value(self, op);
+	uint64_t result;
 	
-	switch (operation.opcode)
+	printf("operand_1: %d\n", operand_1);
+
+	switch (op.opcode)
 	{
 		case G_DATA_MANIPULATION_MODE_AND:
+			result = operand_0 & operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_EOR:
+			result = operand_0 ^ operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_SUB:
+			result = operand_0 - operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_RSB:
+			result = operand_1 - operand_0;
 			break;
 		case G_DATA_MANIPULATION_MODE_ADD:
+			result = operand_0 + operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_ADC:
+			result = operand_0 + operand_1 + getriebe_read_flag(self, G_FLAG_CARRY);
 			break;
 		case G_DATA_MANIPULATION_MODE_SBC:
+			result = operand_0 - operand_1 + getriebe_read_flag(self, G_FLAG_CARRY) - 1;
 			break;
 		case G_DATA_MANIPULATION_MODE_RSC:
+			result = operand_1 - operand_0 + getriebe_read_flag(self, G_FLAG_CARRY) - 1;
 			break;
 		case G_DATA_MANIPULATION_MODE_TST:
+			result = operand_0 & operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_TEQ:
+			result = operand_0 ^ operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_CMP:
+			result = operand_0 - operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_CMN:
+			result = operand_0 + operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_ORR:
+			result = operand_0 | operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_MOV:
+			result = operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_BIC:
+			result = operand_0 & (~operand_1);
 			break;
 		case G_DATA_MANIPULATION_MODE_MVN:
+			result = ~operand_1;
 			break;
 	}
+
+	printf("result: %lld\n", result);
+
+	if (op.set_condition)
+	{
+		// heavy shit
+		uint32_t new_control = getriebe_read_register(self, G_REGISTER_CONTROL);
+		if (result & 0x80000000)
+		{
+			new_control |= G_FLAG_NEGATIVE;
+		}
+		else
+		{
+			new_control &= ~G_FLAG_NEGATIVE;
+		}
+
+		if (result)
+		{
+			new_control |= G_FLAG_ZERO;
+		}
+		else
+		{
+			new_control &= ~G_FLAG_ZERO;
+		}
+
+		//Carry and overflow not set (maybe change of structure of command handling)
+	}
+
+	if ((op.opcode < G_DATA_MANIPULATION_MODE_TST) | (op.opcode > G_DATA_MANIPULATION_MODE_CMN))
+	{
+		getriebe_write_register(self, op.destination, (uint32_t) result);
+	}
 }
-
-
