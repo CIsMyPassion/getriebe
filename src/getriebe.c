@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-
 static inline void internal_init_registers(uint32_t (* registers) [G_REGISTER_COUNT])
 {
     memset(registers, 0, sizeof(uint32_t) * G_REGISTER_COUNT);
