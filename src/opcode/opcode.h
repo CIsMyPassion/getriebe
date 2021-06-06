@@ -5,7 +5,7 @@
 
 typedef enum g_opcode
 {
-    G_OPCODE_AND = 0x0,
+    G_OPCODE_AND = 0x00000000,
     G_OPCODE_EOR = 0x00200000,
     G_OPCODE_SUB = 0x00400000,
     G_OPCODE_RSB = 0x00600000,

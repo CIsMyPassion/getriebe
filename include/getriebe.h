@@ -23,19 +23,16 @@ typedef enum g_register
     G_REGISTER_5,
     G_REGISTER_6,
     G_REGISTER_7,
+    G_REGISTER_8,
+    G_REGISTER_9,
+    G_REGISTER_10,
+    G_REGISTER_11,
+    G_REGISTER_12,
+    G_REGISTER_13,
     G_REGISTER_PC,
     G_REGISTER_SP,
-    G_REGISTER_CONTROL,
     G_REGISTER_COUNT
 } G_Register;
-
-typedef enum g_flags
-{
-    G_FLAG_OVERLOW = 1 << 28,
-    G_FLAG_CARRY = 1 << 29,
-    G_FLAG_ZERO = 1 << 30,
-    G_FLAG_NEGATIVE = 1 << 31,
-} G_Flags;
 
 typedef struct getriebe
 {
@@ -66,11 +63,6 @@ static inline uint32_t getriebe_read_cell(Getriebe * self, uint32_t address)
 static inline void getriebe_write_cell(Getriebe * self, uint32_t address, uint32_t value)
 {
     self->memory[address] = value;
-}
-
-static inline uint8_t getriebe_read_flag(Getriebe * self, G_Flags flag)
-{
-	return (getriebe_read_register(self, G_REGISTER_CONTROL) & flag) > 0;
 }
 
 void getriebe_init(Getriebe * self, uint32_t * code, uint32_t code_start, uint32_t code_size);

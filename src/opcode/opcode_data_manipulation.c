@@ -13,13 +13,16 @@ static inline uint32_t internal_compute_operand_1_value(Getriebe * self, G_Opcod
 {
 	uint32_t result;
 
-	if (opcode.immediate)
+	if (!opcode.immediate)
 	{
 		uint8_t register_number = opcode.operand_1 & 0xf;
 		uint32_t register_value = getriebe_read_register(self, register_number);
 		uint8_t shift_type = opcode.operand_1 & 0x60 >> 5;
 		uint32_t shift_ammount;
 		
+		printf("register number: %d\n", register_number);
+		printf("register value: %d\n", register_value);
+
 		if (opcode.operand_1 & 0x10)
 		{
 			shift_ammount = getriebe_read_register(self, opcode.operand_1 & 0xf00);
