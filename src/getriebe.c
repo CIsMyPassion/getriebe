@@ -1,5 +1,6 @@
 #include "../include/getriebe.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -35,7 +36,7 @@ void getriebe_execute_next_instruction(Getriebe * self)
 {
     uint32_t opcode = getriebe_read_next_cell(self);
 
-	printf("opcode: %d\n", opcode);
+	printf("opcode: %" PRIu32 "\n", opcode);
 	opcode_data_manipulation_handle(self, opcode);
 }
 
