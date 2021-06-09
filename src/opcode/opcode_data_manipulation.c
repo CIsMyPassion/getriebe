@@ -1,6 +1,7 @@
 #include "opcode_data_manipulation.h"
 
 #include <stdio.h>
+#include <inttypes.h>
 
 #include "../../include/getriebe.h"
 
@@ -11,7 +12,7 @@ static inline uint32_t internal_right_rotate(uint32_t value, uint8_t ammount)
 
 static inline uint32_t internal_compute_operand_1_value(Getriebe * self, G_Opcode_Data_Manipulation opcode)
 {
-	uint32_t result;
+	uint32_t result = -1;
 
 	if (opcode.immediate)
 	{
@@ -61,9 +62,9 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
     G_Opcode_Data_Manipulation op = (G_Opcode_Data_Manipulation) { .value = opcode };
 	uint32_t operand_0 = getriebe_read_register(self, op.operand_0);
 	uint32_t operand_1 = internal_compute_operand_1_value(self, op);
-	uint64_t result;
+	uint32_t result = 0;
 	
-	printf("operand_1: %d\n", operand_1);
+	printf("operand_1: %" PRIu32 "\n", operand_1);
 
 	switch (op.opcode)
 	{
@@ -117,7 +118,7 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 			break;
 	}
 
-	printf("result: %lld\n", result);
+	printf("result: %d\n", result);
 
 	if (op.set_condition)
 	{
