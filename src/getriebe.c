@@ -7,6 +7,7 @@
 #include <inttypes.h>
 
 #include "opcode/opcode_data_manipulation.h"
+#include "opcode/opcode_branch.h"
 
 static inline void internal_init_registers(uint32_t (* registers) [G_REGISTER_COUNT])
 {
@@ -36,8 +37,14 @@ void getriebe_execute_next_instruction(Getriebe * self)
 {
     uint32_t opcode = getriebe_read_next_cell(self);
 
-	printf("opcode: %" PRIu32 "\n", opcode);
-	opcode_data_manipulation_handle(self, opcode);
+    switch (g_opcode_get_id(opcode))
+    {
+        case G_OPCODE_BRANCH_ID:
+            opcode_branch_handle(self, opcode);
+            break;
+        default:
+            exit(EXIT_FAILURE);
+    }
 }
 
 void getriebe_print_state(Getriebe * self)

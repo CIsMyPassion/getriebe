@@ -30,6 +30,11 @@ typedef enum g_opcode
     G_OPCODE_SWI = 0x07800000
 } G_Opcode;
 
+static inline uint32_t g_opcode_get_id(uint32_t opcode)
+{
+    return opcode & 0xF0000000;
+}
+
 static inline uint32_t g_opcode_get_group(G_Opcode opcode)
 {
     return opcode & (uint32_t) 0xFFFF0000;

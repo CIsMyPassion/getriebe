@@ -95,18 +95,6 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 		case G_DATA_MANIPULATION_MODE_RSC:
 			result = operand_1 - operand_0 - 1;
 			break;
-		case G_DATA_MANIPULATION_MODE_TST:
-			result = operand_0 & operand_1;
-			break;
-		case G_DATA_MANIPULATION_MODE_TEQ:
-			result = operand_0 ^ operand_1;
-			break;
-		case G_DATA_MANIPULATION_MODE_CMP:
-			result = operand_0 - operand_1;
-			break;
-		case G_DATA_MANIPULATION_MODE_CMN:
-			result = operand_0 + operand_1;
-			break;
 		case G_DATA_MANIPULATION_MODE_ORR:
 			result = operand_0 | operand_1;
 			break;
@@ -123,8 +111,5 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 
 	printf("result: %d\n", result);
 
-	if ((op.opcode < G_DATA_MANIPULATION_MODE_TST) | (op.opcode > G_DATA_MANIPULATION_MODE_CMN))
-	{
-		getriebe_write_register(self, op.destination, (uint32_t) result);
-	}
+	getriebe_write_register(self, op.destination, (uint32_t) result);
 }
