@@ -87,13 +87,13 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 			result = operand_0 + operand_1;
 			break;
 		case G_DATA_MANIPULATION_MODE_ADC:
-			result = operand_0 + operand_1 + getriebe_read_flag(self, G_FLAG_CARRY);
+			result = operand_0 + operand_1 + 1;
 			break;
 		case G_DATA_MANIPULATION_MODE_SBC:
-			result = operand_0 - operand_1 + getriebe_read_flag(self, G_FLAG_CARRY) - 1;
+			result = operand_0 - operand_1 + 1;
 			break;
 		case G_DATA_MANIPULATION_MODE_RSC:
-			result = operand_1 - operand_0 + getriebe_read_flag(self, G_FLAG_CARRY) - 1;
+			result = operand_1 - operand_0 - 1;
 			break;
 		case G_DATA_MANIPULATION_MODE_TST:
 			result = operand_0 & operand_1;
@@ -122,31 +122,6 @@ void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode)
 	}
 
 	printf("result: %d\n", result);
-
-	if (op.set_condition)
-	{
-		// heavy shit
-		uint32_t new_control = getriebe_read_register(self, G_REGISTER_CONTROL);
-		if (result & 0x80000000)
-		{
-			new_control |= G_FLAG_NEGATIVE;
-		}
-		else
-		{
-			new_control &= ~G_FLAG_NEGATIVE;
-		}
-
-		if (result)
-		{
-			new_control |= G_FLAG_ZERO;
-		}
-		else
-		{
-			new_control &= ~G_FLAG_ZERO;
-		}
-
-		//Carry and overflow not set (maybe change of structure of command handling)
-	}
 
 	if ((op.opcode < G_DATA_MANIPULATION_MODE_TST) | (op.opcode > G_DATA_MANIPULATION_MODE_CMN))
 	{

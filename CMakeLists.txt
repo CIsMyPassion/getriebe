@@ -12,12 +12,4 @@ add_executable(getriebe ${source})
 
 target_include_directories(getriebe PUBLIC "include")
 
-
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${source})
-
-
-if(MSVC)
-  target_compile_options(getriebe PRIVATE /W4)
-else()
-  target_compile_options(getriebe PRIVATE -Wall -Wextra -pedantic)
-endif()

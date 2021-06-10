@@ -49,12 +49,6 @@ void getriebe_print_state(Getriebe * self)
     printf("r3:              %010"PRIu32"\n", self->registers[G_REGISTER_3]);
     printf("program_counter: %010"PRIu32"\n", self->registers[G_REGISTER_PC]);
     printf("stack_pointer:   %010"PRIu32"\n", self->registers[G_REGISTER_SP]);
-    printf("flags:           %08X\n", self->registers[G_REGISTER_CONTROL]);
-    printf("positive:        %d\n", (self->registers[G_REGISTER_CONTROL] & 1 << 0) >> 0);
-    printf("zero:            %d\n", (self->registers[G_REGISTER_CONTROL] & 1 << 1) >> 1);
-    printf("negative:        %d\n", (self->registers[G_REGISTER_CONTROL] & 1 << 1) >> 2);
-    printf("carry:           %d\n", (self->registers[G_REGISTER_CONTROL] & 1 << 1) >> 3);
-    printf("overflow:        %d\n", (self->registers[G_REGISTER_CONTROL] & 1 << 1) >> 4);
 }
 
 void getriebe_print_memory(Getriebe * self, uint32_t start_address, uint32_t count)
