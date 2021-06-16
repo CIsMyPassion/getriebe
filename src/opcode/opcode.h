@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "../../include/getriebe.h"
+
 typedef enum g_opcode
 {
     G_OPCODE_AND = 0x00000000,
@@ -39,5 +41,8 @@ static inline uint32_t g_opcode_get_group(G_Opcode opcode)
 {
     return opcode & (uint32_t) 0xFFFF0000;
 }
+
+void opcode_branch_handle(Getriebe * self, uint32_t opcode);
+void opcode_data_manipulation_handle(Getriebe * self, uint32_t opcode);
 
 #endif

@@ -6,8 +6,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#include "opcode/opcode_data_manipulation.h"
-#include "opcode/opcode_branch.h"
+#include "opcode/opcode.h"
 
 static inline void internal_init_registers(uint32_t (* registers) [G_REGISTER_COUNT])
 {

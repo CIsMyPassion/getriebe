@@ -1,6 +1,5 @@
-#include "opcode_branch.h"
+#include "opcode.h"
 
-#include "../../include/getriebe.h"
 
 static void internal_handle_non_link_branch(Getriebe * self, G_Opcode_Branch opcode)
 {
@@ -44,7 +43,7 @@ static void internal_handle_non_link_branch(Getriebe * self, G_Opcode_Branch opc
 			break;
 		case G_BRANCH_CONDITION_GRE:
 			if (value_0 < value_1)
-				return 0;
+				return;
 			break;
 		case G_BRANCH_CONDITION_SME:
 			if (value_0 > value_1)

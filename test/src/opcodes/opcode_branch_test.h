@@ -3,8 +3,7 @@
 
 #include <assert.h>
 
-#include "../../include/getriebe.h"
-#include "../opcode/opcode_branch.h"
+#include <getriebe.h>
 
 static Getriebe br_vm;
 
@@ -72,13 +71,17 @@ static void internal_test_nl_pos()
 
 static void internal_test_non_link_branch()
 {
+	printf("Start non link opcodes\n");
+
 	internal_test_nl_alw();
 	internal_test_nl_pos();
 }
 
 void opcode_branch_test()
 {
+	printf("opcode_branch_test started\n");
 	assert(sizeof(G_Opcode_Branch) == sizeof(uint32_t));
+	printf("G_Opcode_Branch size is correct\n");
 
 	internal_test_non_link_branch();
 }
