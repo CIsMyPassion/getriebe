@@ -34,7 +34,7 @@ typedef enum g_opcode
 
 static inline uint32_t g_opcode_get_id(uint32_t opcode)
 {
-    return opcode & 0xF0000000;
+    return opcode & 0x0000000F;
 }
 
 static inline uint32_t g_opcode_get_group(G_Opcode opcode)
