@@ -10,6 +10,8 @@ static Getriebe br_vm;
 
 static void internal_test_nl_alw()
 {
+	printf("Start condition alw test\n");
+
 	G_Opcode_Branch nl_alw;
 	nl_alw.id = G_OPCODE_BRANCH_ID;
 	nl_alw.mode = G_BRANCH_MODE_BR;
@@ -34,10 +36,14 @@ static void internal_test_nl_alw()
 	getriebe_execute_next_instruction(&br_vm);
 
 	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) == branch_address);
+
+	printf("Condition alw tested\n");
 }
 
 static void internal_test_nl_pos()
 {
+	printf("Start condition pos test\n");
+
 	G_Opcode_Branch nl_pos;
 	nl_pos.id = G_OPCODE_BRANCH_ID;
 	nl_pos.mode = G_BRANCH_MODE_BR;
@@ -68,10 +74,14 @@ static void internal_test_nl_pos()
 	getriebe_execute_next_instruction(&br_vm);
 
 	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) == branch_address);
+
+	printf("Condition pos tested\n");
 }
 
 static void internal_test_nl_neg()
 {
+	printf("Start condition neg test\n");
+
 	G_Opcode_Branch nl_pos;
 	nl_pos.id = G_OPCODE_BRANCH_ID;
 	nl_pos.mode = G_BRANCH_MODE_BR;
@@ -102,6 +112,8 @@ static void internal_test_nl_neg()
 	getriebe_execute_next_instruction(&br_vm);
 
 	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) != branch_address);
+
+	printf("Condition neg tested\n");
 }
 
 /*
@@ -121,6 +133,8 @@ static void internal_test_non_link_branch()
 	internal_test_nl_alw();
 	internal_test_nl_pos();
 	internal_test_nl_neg();
+
+	printf("Non link opcodes tested\n");
 }
 
 void opcode_branch_test()
