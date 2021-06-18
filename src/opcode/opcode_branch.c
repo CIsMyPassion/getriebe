@@ -6,8 +6,8 @@ static void internal_handle_non_link_branch(Getriebe * self, G_Opcode_Branch opc
 	uint32_t destination_address = getriebe_read_register(self, opcode.destination_address_register);
 	int32_t value_0 = (int32_t) getriebe_read_register(self, opcode.compare_register_0);
 	int32_t value_1 = (int32_t) (opcode.immediate ?
-				getriebe_read_register(self, opcode.compare_register_1) :
-				getriebe_read_next_cell(self));
+				getriebe_read_next_cell(self) :
+				getriebe_read_register(self, opcode.compare_register_1));
 
 	switch (opcode.condition)
 	{

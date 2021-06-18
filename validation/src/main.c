@@ -1,6 +1,7 @@
 #include <getriebe.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "opcodes/opcode_branch_test.h"
 #include "opcodes/opcode_data_manipulation_test.h"
@@ -12,5 +13,5 @@ int main()
 	opcode_branch_test();
 	opcode_data_manipulation_test();
 
-	return 0;
+	return EXIT_SUCCESS;
 }

@@ -116,9 +116,89 @@ static void internal_test_nl_neg()
 	printf("Condition neg tested\n");
 }
 
+static void internal_test_nl_zro()
+{
+	printf("Start condition zro test\n");
+
+	G_Opcode_Branch nl_pos;
+	nl_pos.id = G_OPCODE_BRANCH_ID;
+	nl_pos.mode = G_BRANCH_MODE_BR;
+	nl_pos.condition = G_BRANCH_CONDITION_ZRO;
+	nl_pos.immediate = 0;
+	nl_pos.destination_address_register = G_REGISTER_0;
+	nl_pos.compare_register_0 = G_REGISTER_1;
+	uint32_t branch_address = 0xff;
+	uint32_t compare_value = (int32_t) -255;
+
+	getriebe_init(&br_vm, &(nl_pos.value), 0, 1);
+	getriebe_write_register(&br_vm, G_REGISTER_0, branch_address);
+	getriebe_write_register(&br_vm, G_REGISTER_1, compare_value);
+
+	getriebe_execute_next_instruction(&br_vm);
+
+	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) != branch_address);
+
+	nl_pos.destination_address_register = G_REGISTER_7;
+	nl_pos.compare_register_0 = G_REGISTER_13;
+	branch_address = 0xce8a;
+	compare_value = (int32_t) 0;
+
+	getriebe_init(&br_vm, &(nl_pos.value), 0, 1);
+	getriebe_write_register(&br_vm, G_REGISTER_7, branch_address);
+	getriebe_write_register(&br_vm, G_REGISTER_13, compare_value);
+
+	getriebe_execute_next_instruction(&br_vm);
+
+	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) == branch_address);
+
+	printf("Condition zro tested\n");
+}
+
+static void internal_test_nl_eql()
+{
+	printf("Start condition eql test\n");
+
+	G_Opcode_Branch nl_pos;
+	nl_pos.id = G_OPCODE_BRANCH_ID;
+	nl_pos.mode = G_BRANCH_MODE_BR;
+	nl_pos.condition = G_BRANCH_CONDITION_EQL;
+	nl_pos.immediate = 0;
+	nl_pos.destination_address_register = G_REGISTER_0;
+	nl_pos.compare_register_0 = G_REGISTER_1;
+	nl_pos.compare_register_1 = G_REGISTER_2;
+	uint32_t branch_address = 0xff;
+	uint32_t compare_value_0 = (int32_t) -255;
+	uint32_t compare_value_1 = (int32_t) -255;
+
+	getriebe_init(&br_vm, &(nl_pos.value), 0, 1);
+	getriebe_write_register(&br_vm, G_REGISTER_0, branch_address);
+	getriebe_write_register(&br_vm, G_REGISTER_1, compare_value_0);
+	getriebe_write_register(&br_vm, G_REGISTER_2, compare_value_1);
+
+	getriebe_execute_next_instruction(&br_vm);
+
+	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) == branch_address);
+
+	nl_pos.destination_address_register = G_REGISTER_7;
+	nl_pos.compare_register_0 = G_REGISTER_13;
+	nl_pos.compare_register_1 = G_REGISTER_6;
+	branch_address = 0xce8a;
+	compare_value_0 = (int32_t) 0;
+	compare_value_1 = (int32_t) 255;
+
+	getriebe_init(&br_vm, &(nl_pos.value), 0, 1);
+	getriebe_write_register(&br_vm, G_REGISTER_7, branch_address);
+	getriebe_write_register(&br_vm, G_REGISTER_13, compare_value_0);
+	getriebe_write_register(&br_vm, G_REGISTER_6, compare_value_1);
+
+	getriebe_execute_next_instruction(&br_vm);
+
+	assert(getriebe_read_register(&br_vm, G_REGISTER_PC) != branch_address);
+
+	printf("Condition eql tested\n");
+}
+
 /*
-	G_BRANCH_CONDITION_ZRO
-	G_BRANCH_CONDITION_EQL
 	G_BRANCH_CONDITION_NEQ
 	G_BRANCH_CONDITION_GRT
 	G_BRANCH_CONDITION_SML
@@ -133,6 +213,8 @@ static void internal_test_non_link_branch()
 	internal_test_nl_alw();
 	internal_test_nl_pos();
 	internal_test_nl_neg();
+	internal_test_nl_zro();
+	internal_test_nl_eql();
 
 	printf("Non link opcodes tested\n");
 }
