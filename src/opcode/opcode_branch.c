@@ -1,6 +1,6 @@
 #include "opcode.h"
 
-#include <inttypes.h>
+#include "../stack_manipulation.h"
 
 static void internal_handle_non_link_branch(Getriebe * self, G_Opcode_Branch opcode)
 {
@@ -57,19 +57,56 @@ static void internal_handle_non_link_branch(Getriebe * self, G_Opcode_Branch opc
 
 static void internal_handle_link_branch(Getriebe * self, G_Opcode_Branch opcode)
 {
-	uint32_t value_0 = getriebe_read_register(self, opcode.compare_register_0);
-	uint32_t value_1;
+	uint32_t destination_address = getriebe_read_register(self, opcode.destination_address_register);
+	int32_t value_0 = (int32_t) getriebe_read_register(self, opcode.compare_register_0);
+	int32_t value_1 = (int32_t) (opcode.immediate ?
+						getriebe_read_next_cell(self) :
+						getriebe_read_register(self, opcode.compare_register_1));
+	uint32_t link_address = getriebe_read_register(self, G_REGISTER_PC);
 
-	switch (opcode.immediate)
+	switch (opcode.condition)
 	{
-		case 0:
-			value_1 = getriebe_read_register(self, opcode.compare_register_1);
+		case G_BRANCH_CONDITION_ALW:
 			break;
-		case 1:
-			value_1 = getriebe_read_next_cell(self);
+		case G_BRANCH_CONDITION_POS:
+			if (value_0 <= 0)
+				return;
+			break;
+		case G_BRANCH_CONDITION_NEG:
+			if (value_0 >= 0)
+				return;
+			break;
+		case G_BRANCH_CONDITION_ZRO:
+			if (value_0 != 0)
+				return;
+			break;
+		case G_BRANCH_CONDITION_EQL:
+			if (value_0 != value_1)
+				return;
+			break;
+		case G_BRANCH_CONDITION_NEQ:
+			if (value_0 == value_1)
+				return;
+			break;
+		case G_BRANCH_CONDITION_GRT:
+			if (value_0 <= value_1)
+				return;
+			break;
+		case G_BRANCH_CONDITION_SML:
+			if (value_0 >= value_1)
+				return;
+			break;
+		case G_BRANCH_CONDITION_GRE:
+			if (!(value_0 >= value_1))
+				return;
+			break;
+		case G_BRANCH_CONDITION_SME:
+			if (!(value_0 <= value_1))
+				return;
 			break;
 	}
 
+	getriebe_stack_push(self, G_REGISTER_PC);
 	uint32_t return_address = (getriebe_read_register(self, G_REGISTER_PC) + 1) + (opcode.immediate);
 }
 

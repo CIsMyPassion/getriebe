@@ -5,11 +5,8 @@
 
 #define G_OPCODE_BRANCH_ID UINT32_C(0x0)
 
-
 #define GETRIEBE_MEMORY_SIZE (UINT16_MAX + 1) * 4
-#define GETRIEBE_STACK_SIZE UINT16_MAX
-#define GETRIEBE_STACK_OFFSET UINT32_C(GETRIEBE_MEMORY_SIZE * 3 / 4)
-
+#define GETRIEBE_STACK_SIZE UINT16_MAX + 1
 
 // Opcode definitions
 
@@ -110,17 +107,11 @@ typedef enum g_register
 
 
 
-
-
-
-
-
-
-
 typedef struct getriebe
 {
     uint32_t registers[G_REGISTER_COUNT];
     uint32_t * memory;
+	uint32_t * stack;
 } Getriebe;
 
 static inline uint32_t getriebe_read_register(Getriebe * self, uint32_t register_number)

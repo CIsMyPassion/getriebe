@@ -11,7 +11,7 @@
 static inline void internal_init_registers(uint32_t (* registers) [G_REGISTER_COUNT])
 {
     memset(registers, 0, sizeof(uint32_t) * G_REGISTER_COUNT);
-    (*registers)[G_REGISTER_SP] = UINT16_MAX;
+    (*registers)[G_REGISTER_SP] = GETRIEBE_STACK_SIZE - 1;
 }
 
 void getriebe_init(Getriebe * self, uint32_t * code, uint32_t code_start, uint32_t code_size)
@@ -22,6 +22,8 @@ void getriebe_init(Getriebe * self, uint32_t * code, uint32_t code_start, uint32
     memcpy(self->memory + code_start, code, sizeof(uint32_t) * code_size);
     memset(self->memory, 0, sizeof(uint32_t) * code_start);
     memset(self->memory + (code_start + code_size), 0, sizeof(uint32_t) * (GETRIEBE_MEMORY_SIZE - (code_start + code_size) + 1));
+
+    self->stack = malloc(sizeof(uint32_t) * GETRIEBE_STACK_SIZE);
 }
 
 void getriebe_execute(Getriebe * self, uint32_t start_address, uint32_t instructions)
