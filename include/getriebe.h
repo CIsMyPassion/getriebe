@@ -37,13 +37,13 @@ typedef union g_opcode_branch
 	struct
 	{
 		uint32_t id : 4;
-		G_Branch_Mode mode : 1;
+		G_Branch_Mode mode : 2;
 		G_Branch_Condition condition : 5;
 		uint32_t immediate : 1;
 		uint32_t destination_address_register : 4;
 		uint32_t compare_register_0 : 4;
 		uint32_t compare_register_1 : 4;
-		uint32_t unused : 9;
+		uint32_t unused : 8;
 	};
 	uint32_t value;
 } G_Opcode_Branch;

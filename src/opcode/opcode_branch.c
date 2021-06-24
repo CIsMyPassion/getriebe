@@ -107,14 +107,16 @@ static void internal_handle_link_branch(Getriebe * self, G_Opcode_Branch opcode)
 	}
 
 	getriebe_stack_push(self, G_REGISTER_PC);
-	uint32_t return_address = (getriebe_read_register(self, G_REGISTER_PC) + 1) + (opcode.immediate);
+	getriebe_write_register(self, G_REGISTER_PC, destination_address);
 }
 
 void opcode_branch_handle(Getriebe * self, uint32_t opcode)
 {
 	G_Opcode_Branch branch = { .value = opcode };
 
-	switch (branch.mode)
+	G_Branch_Mode mode = branch.mode;
+
+	switch (mode)
 	{
 		case G_BRANCH_MODE_BR:
 			internal_handle_non_link_branch(self, branch);
